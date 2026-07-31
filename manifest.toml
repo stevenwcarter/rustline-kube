@@ -1,0 +1,7 @@
+# Embedded into the built .wasm as the `rustline-manifest` custom section.
+# Read-only; globset's `*` crosses `/`, so these cover one home level on
+# Linux and macOS. A nonstandard kubeconfig location needs its own
+# `rustline plugin path add kube <pattern>` grant plus the `path` option.
+name = "kube"
+version = "0.1.0"
+requested_paths = ["/home/*/.kube/config", "/Users/*/.kube/config"]
