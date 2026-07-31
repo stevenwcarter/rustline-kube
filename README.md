@@ -36,6 +36,15 @@ your kubeconfig lives somewhere other than `~/.kube/config`. A nonstandard
 location also needs its own grant:
 `rustline plugin path add kube <pattern>`.
 
+If your kubeconfig is a symlink (common with `stow`/dotfiles setups), the
+default `resolve_symlinks = false` denies it outright — rustline's symlink
+gate refuses any path with a symlink component unless you opt in — and the
+failure is invisible in the bar (the widget just renders `down_format`,
+empty by default). Either set `resolve_symlinks = true` under
+`[plugins.kube]` (and grant the *resolved*, real location the symlink points
+at) or point `path` at the real file directly instead of the symlink. A
+denial shows up in `rustline plugin denials kube`, not in the bar.
+
 ## Building from source
 
     cargo build --release --target wasm32-unknown-unknown
